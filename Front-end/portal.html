@@ -1,0 +1,230 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<title>User Portal: Modesto Moves</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="assets/css/main.css" />
+
+	<!-- Google Sign In -->
+	<script src="https://apis.google.com/js/api:client.js"></script>
+</head>
+
+<body class="is-preload">
+	<div id="wrapper" class="divided">
+		<section class="spotlight style1 orient-right content-align-left image-position-center onscroll-image-fade-in" id="signin">
+			<div class="content">
+				<h2>
+					Sign In
+				</h2>
+				<p>
+					Modesto Moves manages accounts via Google Sign In to ensure privacy of participants' information. Click the button
+					to sign-in or to create a new account.
+				</p>
+				<ul class="actions">
+					<li>
+						<div id="customBtn" class="button large wide customGPlusSignIn">
+							<span class="buttonText" id="buttonText">Sign In</span>
+						</div>
+					</li>
+					<li>
+						<a href="index.html" class="button large wide smooth-scroll-middle">
+							Back
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="image">
+				<img src="images/finish-line.jpg" alt="" />
+			</div>
+		</section>
+		<div id="signedin" style="display:none">
+			<section class="banner onload-image-fade-in onload-content-fade-right style3 fullscreen iphone orient-right content-align-left image-position-right">
+				<div class="content">
+					<h1 id="name">Laura Nance</h1>
+					<p class="major" id="biography-text">
+						Hello! I've been a coach for Modesto Moves for two years, helping those of all ages achieve their
+						fitness goals. I specialize in helping those new to the world of long-distance running!
+					</p>
+					<ul class="actions">
+						<li id="view_button" style="display:none">
+							<a onclick="viewInfo()" class="button large wide smooth-scroll-middle">
+								See Participant Information
+							</a>
+						</li>
+						<li>
+							<a href="index.html#events" class="button large wide smooth-scroll-middle">
+								Find Events
+							</a>
+						</li>
+						<li>
+							<a href="index.html" class="button large wide smooth-scroll-middle">
+								Back
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="image">
+					<img id="image" src="images/coach.jpg" alt="">
+				</div>
+			</section>
+			<center>
+				<div id="attendees"></div>
+			</center>
+			<section class="banner onload-image-fade-in onload-content-fade-right style2 fullscreen iphone orient-center content-align-left image-position-right">
+				<div class="content" style="background-color: white">
+					<form method="post" action="#">
+						<div class="fields">
+							<h3 class="field">Personal Information</h3>
+							<div class="field half">
+								<label for="name">First Name</label>
+								<input type="text" name="name" id="first-name" value="" />
+							</div>
+							<div class="field half">
+								<label for="email">Last Name</label>
+								<input type="email" name="email" id="last-name" value="" />
+							</div>
+							<div class="field half">
+								<label for="email">Email</label>
+								<input type="email" name="email" id="email" value="" />
+							</div>
+							<div class="field half">
+								<label for="tel">Phone</label>
+								<input type="tel" name="tel" id="tel" value="" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required />
+							</div>
+							<div class="field">
+								<label for="message">Tell us about yourself! (optional)</label>
+								<textarea name="message" id="biography" rows="2"></textarea>
+							</div>
+							<h3 class="field">Emergency Contact Information</h3>
+							<div class="field half">
+								<label for="emerg-name">Name</label>
+								<input type="text" name="emerg-name" id="emergname" value="" />
+							</div>
+							<div class="field half">
+								<label for="emerg-tel">Phone</label>
+								<input type="tel" name="emerg-tel" id="emergtel" value="" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required />
+							</div>
+							<h3 class="field">Health & Wellness Survey</h3>
+							<div class="field half">
+								<label for="gender">Gender</label>
+								<input type="text" name="gender" id="gender" value="" />
+							</div>
+							<div class="field half">
+								<label for="age">Age</label>
+								<input type="text" name="age" id="age" value="" />
+							</div>
+							<div class="field half">
+								<label for="weight">Weight</label>
+								<input type="text" name="weight" id="weight" value="" />
+							</div>
+							<div class="field half">
+								<label for="height">Height</label>
+								<input type="text" name="height" id="height" value="" />
+							</div>
+							<div class="field ">
+								<label for="provider">Medical Provider</label>
+								<input type="text" name="provider" id="provider" value="" />
+							</div>
+							<div class="field ">
+								<label for="provider">Allergies</label>
+								<input type="text" name="provider" id="allergies" value="" />
+							</div>
+							<div class="field">
+								<label for="medications">Medications</label>
+								<textarea name="medications" id="medications" rows="2"></textarea>
+							</div>
+							<div class="field half">
+								<input type="checkbox" id="pressure" name="pressure" />
+								<label for="pressure">High Blood pressure</label>
+							</div>
+							<div class="field half">
+								<input type="checkbox" id="heart" name="heart" />
+								<label for="heart">Heart Disease</label>
+							</div>
+							<div class="field half">
+								<input type="checkbox" id="heartattack" name="heart-attack" />
+								<label for="heart-attack">History of Heart Attack</label>
+							</div>
+							<div class="field half">
+								<input type="checkbox" id="stroke" name="stroke" />
+								<label for="stroke">History of Stroke</label>
+							</div>
+							<div class="field half">
+								<input type="checkbox" id="vascular" name="vascular" />
+								<label for="vascular">Vascular Disease</label>
+							</div>
+							<div class="field half">
+								<input type="checkbox" id="neuromuscular" name="neuromuscular" />
+								<label for="neuromuscular">Neuromuscular Disease</label>
+							</div>
+							<div class="field half">
+								<input type="checkbox" id="kidney" name="kidney" />
+								<label for="kidney">Kidney/Renal Disease</label>
+							</div>
+							<div class="field half">
+								<input type="checkbox" id="bariatric" name="bariatric" />
+								<label for="bariatric">History of Bariatric Surgery</label>
+							</div>
+							<div class="field half">
+								<input type="checkbox" id="arthritis" name="arthritis" />
+								<label for="arthritis">Arthritis</label>
+							</div>
+							<div class="field half">
+								<input type="checkbox" id="cancer" name="cancer" />
+								<label for="cancer">History of Cancer</label>
+							</div>
+							<div class="field half">
+								<input type="checkbox" id="congenital" name="congenital" />
+								<label for="congenital">Congenital Disease</label>
+							</div>
+							<div class="field half">
+								<input type="checkbox" id="psychiatric" name="psychiatric" />
+								<label for="psychiatric">Psychiatric Disorder</label>
+							</div>
+							<div class="field">
+								<label for="message">Other / Additional Information</label>
+								<textarea name="message" id="otherConditions" rows="6"></textarea>
+							</div>
+						</div>
+						<ul class="actions">
+							<li>
+								<a onclick="updateUser()" class="button large wide smooth-scroll-middle">
+									Save Updated Information
+								</a>
+							</li>
+						</ul>
+					</form>
+				</div>
+				<div class="image">
+					<img src="images/health.jpg" alt="">
+				</div>
+			</section>
+		</div>
+
+		<!-- Footer -->
+		<footer class="wrapper style1 align-center">
+			<div class="inner">
+				<ul class="icons">
+					<li><a href="mailto:movestrainingorg@gmail.com" class="icon style2 fa-envelope"><span class="label">Email</span></a></li>
+				</ul>
+				<p>&copy; 2019 Modesto Moves</p>
+			</div>
+		</footer>
+	</div>
+
+	<!-- Scripts -->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/jquery.scrollex.min.js"></script>
+	<script src="assets/js/jquery.scrolly.min.js"></script>
+	<script src="assets/js/browser.min.js"></script>
+	<script src="assets/js/breakpoints.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<script src="assets/js/main.js"></script>
+
+	<!-- Master Script -->
+	<script src="assets/js/portal.js"></script>
+</body>
+
+</html>

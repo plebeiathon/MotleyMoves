@@ -1,0 +1,15 @@
+.DS_Store
+MVC/.vs/ModestoMoves/v16/.suo
+*.lock
+*.ide
+*.ide-shm
+*.ide-wal
+*.json
+*.dll
+*.cache
+*.CopyComplete
+*.txt
+*.pdb
+MVC/.vs/ModestoMoves/DesignTimeBuild/.dtbcache
+*.props
+*.targets

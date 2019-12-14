@@ -1,0 +1,18 @@
+#customBtn {
+    display: inline-block;
+    white-space: nowrap;
+}
+
+#customBtn:hover {
+    cursor: pointer;
+}
+
+span.label {
+    font-family: serif;
+    font-weight: normal;
+}
+
+span.buttonText {
+    display: inline-block;
+    vertical-align: middle;
+}

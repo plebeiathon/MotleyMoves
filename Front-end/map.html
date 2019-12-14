@@ -1,0 +1,205 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<title>Map: Moves Training</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="assets/css/main.css" />
+
+	<!-- MapBox -->
+	<script src="https://api.tiles.mapbox.com/mapbox-gl-js/v1.3.1/mapbox-gl.js"></script>
+	<link href="https://api.tiles.mapbox.com/mapbox-gl-js/v1.3.1/mapbox-gl.css" rel="stylesheet" />
+
+	<!-- Google Sign In -->
+	<script src="https://apis.google.com/js/api:client.js"></script>
+</head>
+
+<body class="is-preload">
+	<div id="wrapper" class="divided">
+
+		<!-- Banner -->
+		<section class="banner style1 orient-left content-align-left image-position-right fullscreen onload-image-fade-in onload-content-fade-right">
+			<div class="content">
+				<form id="admin_form" method="post" action="#" style="display:none">
+					<div class="fields">
+						<div class="field half">
+							<label for="name">Name</label>
+							<input type="text" name="name" id="event-title" value="" />
+						</div>
+						<div class="field half">
+							<label for="date">Date</label>
+							<input type="date" name="name" id="event-date" value="2019-05-22" />
+						</div>
+						<div class="field half">
+							<label for="start">Start Time</label>
+							<input type="text" name="name" id="event-start" value="10am" />
+						</div>
+						<div class="field half">
+							<label for="end">End Time</label>
+							<input type="text" name="name" id="event-end" value="4pm" />
+						</div>
+						<div class="field">
+							<label for="message">Description</label>
+							<textarea name="message" id="event-description" rows="3"></textarea>
+						</div>
+					</div>
+					<ul class="actions">
+						<li>
+							<a onclick="closeWithoutSaving()" class="button large wide smooth-scroll-middle">
+								Close without Saving
+							</a>
+						</li>
+						<li>
+							<a onclick="saveRoute()" class="button large wide smooth-scroll-middle">
+								Save and Exit
+							</a>
+						</li>
+					</ul>
+					<ul class="actions">
+						<li>
+							<a onclick="deleteEvent()" class="button large wide smooth-scroll-middle">
+								Delete Event
+							</a>
+						</li>
+						<li>
+							<a onclick="newEvent()" class="button large wide smooth-scroll-middle">
+								New Event
+							</a>
+						</li>
+					</ul>
+				</form>
+				<form id="info_form" method="post" action="#" style="display:none">
+					<div class="fields" id="attendees">
+					</div>
+					<ul class="actions">
+						<li>
+							<a onclick="closeInfo()" class="button large wide smooth-scroll-middle">
+								Back
+							</a>
+						</li>
+					</ul>
+				</form>
+				<div id="event_details">
+					<h2 id="event_title">
+						Event Name
+					</h2>
+					<p id="event_description">
+						Event Description
+					</p>
+					<ul class="actions stacked">
+						<li style="padding:.5em 0 0 0">
+							<a href="index.html#events-calendar" class="icon style2 fa-calendar" id="event_date">
+								<span class="label">
+									Event Date
+								</span>
+							</a>
+						</li>
+						<li style="padding:.5em 0 0 0">
+							<a class="icon style2 fa-user" id="event_registered">
+								<span class="label">
+									Participants Registered
+								</span>
+							</a>
+						</li>
+						<li style="padding:.5em 0 0 0" id="event_registration">
+							<div id="customBtn" class="button large wide customGPlusSignIn">
+								<span class="buttonText" >
+									Sign In
+								</span>
+							</div>
+						</li>
+						<li style="padding:.5em 0 0 0; display:none" id="register">
+							<a onclick="register();" class="button large wide">
+								Register
+							</a>
+						</li>
+						<li style="padding:.5em 0 0 0; display:none" id="unregister">
+							<a onclick="unregister();" class="button large wide">
+								Unregister
+							</a>
+						</li>
+						<li style="padding:.5em 0 0 0; display:none" id="checkIn">
+							<a onclick="checkIn();" class="button large wide">
+								Check In
+							</a>
+						</li>
+						<li style="padding:.5em 0 0 0; display:none" id="checkOut">
+							<a onclick="checkOut();" class="button large wide">
+								Check Out
+							</a>
+						</li>
+						<li style="padding:.5em 0 0 0; display:none" id="finished">
+							<a class="button large wide">
+								Thanks for Coming!
+							</a>
+						</li>
+						<li id="adminAction1" style="padding:.5em 0 0 0;display:none">
+							<a onclick="openForm();" class="button large wide">
+								Edit Event
+							</a>
+						</li>
+						<li style="padding:.5em 0 0 0; display:none" id="adminAction2">
+							<a onclick="openInfo();" class="button large wide">
+								View Participants
+							</a>
+						</li>
+						<li style="padding:.5em 0 0 0">
+							<a href="index.html#events" class="button large wide">
+								Back
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="image">
+				<div id="map" style="position: absolute;top: 0;bottom: 0;width: 100%;"></div>
+				<div id="edit_form_div" style="position:absolute; top:20px;width:30%;display:none;">
+					<form id="edit_form" method="post" action="#" style="margin:0">
+						<div class="fields">
+							<div style="width:30%; padding: 1rem 0 0 3rem;">
+								<div style="width:100%">
+									<a onclick="addPoint()" class="button large wide" id="point-mode" style="width:10em; background:white;">
+										Add Point
+									</a>
+								</div>
+								<div style="width:100%">
+									<select name="point-type" id="point-type" style="width:11em;  background:white;">
+										<option value="Race Marker">Race Line</option>
+										<option value="Bathrooms">Bathrooms</option>
+										<option value="Refreshments">Refreshments</option>
+										<option value="Parking">Parking</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</section>
+
+		<!-- Footer -->
+		<footer class="wrapper style1 align-center">
+			<div class="inner">
+				<ul class="icons">
+					<li><a href="mailto:movestrainingorg@gmail.com" class="icon style2 fa-envelope"><span class="label">Email</span></a></li>
+				</ul>
+				<p>&copy; 2019 Modesto Moves</p>
+			</div>
+		</footer>
+	</div>
+
+	<!-- Scripts -->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/jquery.scrollex.min.js"></script>
+	<script src="assets/js/jquery.scrolly.min.js"></script>
+	<script src="assets/js/browser.min.js"></script>
+	<script src="assets/js/breakpoints.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<script src="assets/js/main.js"></script>
+
+	<!-- Master Script -->
+	<script src="assets/js/map.js"></script>
+</body>
+
+</html>
